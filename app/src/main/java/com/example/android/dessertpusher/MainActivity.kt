@@ -26,8 +26,11 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import timber.log.Timber
 
-class MainActivity : AppCompatActivity(), LifecycleObserver {
+class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
 
     private var revenue = 0
     private var dessertsSold = 0
@@ -64,7 +67,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //
+        Timber.i("onCreate called")
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -78,6 +82,30 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+    }
+    override fun onRestart() {
+        super.onRestart()
+        info("onRestart")
+    }
+    override fun onStart() {
+        super.onStart()
+        Timber.i("onStart called")
+    }
+    override fun onResume() {
+        super.onResume()
+        info("onResume")
+    }
+    override fun onPause() {
+        super.onPause()
+        info("onPause")
+    }
+    override fun onStop() {
+        super.onStop()
+        info("onStop")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        info("onDestroy")
     }
 
     /**
