@@ -20,6 +20,7 @@ import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
+    // Dessert Timer
+    private lateinit var timer: DessertTimer
 
     /** Dessert Data **/
 
@@ -63,18 +66,23 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
             Dessert(R.drawable.nougat, 5000, 16000),
             Dessert(R.drawable.oreo, 6000, 20000)
     )
+
     private var currentDessert = allDesserts[0]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //
+        info("onCreate, savedInstanceState: $savedInstanceState")
+        //Prepare timer
+        timer = DessertTimer {
+            Timber.i("timer is at: $it, ${timer.counter}")
+        }
+        //
         Timber.i("onCreate called")
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.dessertButton.setOnClickListener {
-            onDessertClicked()
-        }
+        binding.dessertButton.setOnClickListener(::onDessertClicked)
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -89,7 +97,12 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
     }
     override fun onStart() {
         super.onStart()
+        timer.start()
         Timber.i("onStart called")
+    }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        info("onRestoreInstanceState, savedInstanceState: $savedInstanceState")
     }
     override fun onResume() {
         super.onResume()
@@ -101,17 +114,21 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
     }
     override fun onStop() {
         super.onStop()
-        info("onStop")
+        timer.stop()
+        info("onStop, $timer")
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        info("onSaveInstanceState")
+        super.onSaveInstanceState(outState)
     }
     override fun onDestroy() {
         super.onDestroy()
         info("onDestroy")
     }
-
     /**
      * Updates the score when the dessert is clicked. Possibly shows a new dessert.
      */
-    private fun onDessertClicked() {
+    private fun onDessertClicked(view: View) {
 
         // Update the score
         revenue += currentDessert.price
