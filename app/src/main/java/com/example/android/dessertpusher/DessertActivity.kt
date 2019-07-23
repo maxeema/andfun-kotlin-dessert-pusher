@@ -71,8 +71,6 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.dessertButton.setOnClickListener(::onDessertClicked)
-
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
@@ -117,10 +115,11 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
         super.onDestroy()
         info("onDestroy")
     }
+
     /**
      * Updates the score when the dessert is clicked. Possibly shows a new dessert.
      */
-    private fun onDessertClicked(view: View) {
+    fun consumeDessert(view: View) {
         // Update the score
         revenue += currentDessert.price
         dessertsSold++
@@ -157,12 +156,10 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
             else break
         }
 
-        // If the new dessert is actually different than the current dessert, update the image
-        if (newDessert != currentDessert) {
+        if (newDessert != currentDessert)
             currentDessert = newDessert
-            binding.dessertButton.setImageResource(newDessert.imageId)
-            Persistent.dessert(currentDessert.id)
-        }
+
+        binding.dessertButton.setImageResource(currentDessert.imageId)
     }
 
     /**
