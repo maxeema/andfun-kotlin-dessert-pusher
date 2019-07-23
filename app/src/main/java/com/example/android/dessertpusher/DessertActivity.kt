@@ -54,7 +54,6 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
 
         // Init timer
         DessertTimer(savedInstanceState?.getString("timer")?.toULong()) {
-            Timber.i("timer is at: $it")
             binding.timer = it.toString()
         }.apply {
             timer = this
@@ -106,10 +105,12 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         info("onSaveInstanceState")
-        outState.putInt("dessert", currentDessert.id)
-        outState.putInt("sold", dessertsSold)
-        outState.putInt("revenue", revenue)
-        outState.putString("timer", timer.valueStr)
+        with (outState) {
+            putInt("dessert", currentDessert.id)
+            putInt("sold", dessertsSold)
+            putInt("revenue", revenue)
+            putString("timer", timer.valueStr)
+        }
     }
     override fun onDestroy() {
         super.onDestroy()
