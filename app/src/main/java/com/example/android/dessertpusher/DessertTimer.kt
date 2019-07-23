@@ -22,8 +22,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class DessertTimer(@IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
-               tikTak: (counter: UInt) -> Unit) : LifecycleObserver {
+class DessertTimer(initial: ULong? = null, @IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
+                   tikTak: (counter: ULong) -> Unit) : LifecycleObserver {
 
     init { require(interval >= MIN_INTERVAL.toUInt()) }
 
@@ -32,21 +32,23 @@ class DessertTimer(@IntRange(from=MIN_INTERVAL.toLong()) private val interval: U
         private const val DEF_INTERVAL = 1000
     }
 
-    // Cur value
-    val counter
-        get() = value
+    // Current value
+    val value       get() = counter
+    val valueStr    get() = counter.toString()
     // Still counting ?..
-    var active = false
+    val isActive    get() = active
 
     // Implementation
-    private var value = UInt.MIN_VALUE
+    private var active = false
+    private var counter = initial ?: ULong.MIN_VALUE
     private val handler : Handler by lazy { Handler() }
-    private val runnable : () -> Unit = { tikTak(++value); post() }
+    private val runnable : () -> Unit = { tikTak(++counter); post() }
 
     private fun post() = handler.postDelayed(runnable, interval.toLong())
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun start() = active || { active = true; post(); true } ()
+
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun stop() = !active || { active = false; handler.removeCallbacksAndMessages(null); true } ()
 

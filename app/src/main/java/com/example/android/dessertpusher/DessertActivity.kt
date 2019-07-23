@@ -25,57 +25,39 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity(), AnkoLogger {
+class DessertActivity : AppCompatActivity(), AnkoLogger {
 
     private var revenue = 0
     private var dessertsSold = 0
 
     private lateinit var binding: ActivityMainBinding
-
-    /** Dessert Data **/
-
-    /**
-     * Simple data class that represents a dessert. Includes the resource id integer associated with
-     * the image, the price it's sold for, and the startProductionAmount, which determines when
-     * the dessert starts to be produced.
-     */
-    data class Dessert(val imageId: Int, val price: Int, val startProductionAmount: Int)
-
-    // Create a list of all desserts, in order of when they start being produced
-    private val allDesserts = listOf(
-            Dessert(R.drawable.cupcake, 5, 0),
-            Dessert(R.drawable.donut, 10, 5),
-            Dessert(R.drawable.eclair, 15, 20),
-            Dessert(R.drawable.froyo, 30, 50),
-            Dessert(R.drawable.gingerbread, 50, 100),
-            Dessert(R.drawable.honeycomb, 100, 200),
-            Dessert(R.drawable.icecreamsandwich, 500, 500),
-            Dessert(R.drawable.jellybean, 1000, 1000),
-            Dessert(R.drawable.kitkat, 2000, 2000),
-            Dessert(R.drawable.lollipop, 3000, 4000),
-            Dessert(R.drawable.marshmallow, 4000, 8000),
-            Dessert(R.drawable.nougat, 5000, 16000),
-            Dessert(R.drawable.oreo, 6000, 20000)
-    )
-
-    private var currentDessert = allDesserts[0]
+    private lateinit var currentDessert : Dessert
+    private lateinit var timer : DessertTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Log us
         Timber.i("onCreate, savedInstanceState: $savedInstanceState")
 
+        //Restore or initialize state
+        currentDessert = savedInstanceState?.takeIf { it.containsKey("dessert") }?.run {
+            val id = getInt("dessert")
+            Desserts.all.find { id == it.id }?.also {
+                dessertsSold = getInt("sold")
+                revenue = getInt("revenue")
+            }
+        } ?: Desserts.first
+
         // Init timer
-        DessertTimer {
+        DessertTimer(savedInstanceState?.getString("timer")?.toULong()) {
             Timber.i("timer is at: $it")
+            binding.timer = it.toString()
         }.apply {
+            timer = this
             lifecycle.addObserver(this)
         }
 
@@ -90,6 +72,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+
+        // Set up timer
+        binding.timer = timer.valueStr
 
     }
     override fun onRestart() {
@@ -119,8 +104,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         info("onStop")
     }
     override fun onSaveInstanceState(outState: Bundle) {
-        info("onSaveInstanceState")
         super.onSaveInstanceState(outState)
+        info("onSaveInstanceState")
+        outState.putInt("dessert", currentDessert.id)
+        outState.putInt("sold", dessertsSold)
+        outState.putInt("revenue", revenue)
+        outState.putString("timer", timer.valueStr)
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -145,8 +134,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
      * Determine which dessert to show.
      */
     private fun showCurrentDessert() {
-        var newDessert = allDesserts[0]
-        for (dessert in allDesserts) {
+        var newDessert = Desserts.first
+        for (dessert in Desserts.all) {
             if (dessertsSold >= dessert.startProductionAmount) {
                 newDessert = dessert
             }
@@ -191,5 +180,5 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
         return super.onOptionsItemSelected(item)
     }
-    
+
 }

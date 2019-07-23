@@ -17,17 +17,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".DessertActivity">
 
     <data>
-
-        <variable
-            name="revenue"
-            type="Integer" />
-
-        <variable
-            name="amountSold"
-            type="Integer" />
+        <variable name="revenue" type="Integer" />
+        <variable name="amountSold" type="Integer" />
+        <variable name="timer" type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,21 +45,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/default_spacing" />
+            app:layout_constraintGuide_percent=".95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/margin_bottom_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_end="@dimen/default_spacing" />
+            app:layout_constraintGuide_percent=".97" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/margin_start_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/default_spacing" />
+            app:layout_constraintGuide_percent=".05" />
 
         <ImageButton
             android:id="@+id/dessert_button"
@@ -109,7 +104,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/dessert_sold"
             android:textSize="@dimen/medium_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/amount_sold_text"
+            app:layout_constraintBaseline_toBaselineOf="@+id/amount_sold_text"
             app:layout_constraintStart_toStartOf="@+id/margin_start_guide" />
 
         <TextView
@@ -125,6 +120,32 @@
             app:layout_constraintBottom_toTopOf="@+id/revenue_text"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
             tools:text="12" />
+
+        <TextView
+            android:id="@+id/counter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/clock"
+            app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/clock"
+            android:text="@{timer}"
+            tools:text="100" />
+
+        <ImageView
+            android:id="@+id/clock"
+            android:layout_width="@dimen/medium_text_size"
+            android:layout_height="@dimen/medium_text_size"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/white_background"
+            app:layout_constraintEnd_toStartOf="@+id/counter_text"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/background_image"
+            app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
+            app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
