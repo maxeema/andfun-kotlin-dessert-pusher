@@ -31,15 +31,12 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
+class MainActivity : AppCompatActivity(), AnkoLogger {
 
     private var revenue = 0
     private var dessertsSold = 0
 
-    // Contains all the views
     private lateinit var binding: ActivityMainBinding
-    // Dessert Timer
-    private lateinit var timer: DessertTimer
 
     /** Dessert Data **/
 
@@ -71,14 +68,17 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //
-        info("onCreate, savedInstanceState: $savedInstanceState")
-        //Prepare timer
-        timer = DessertTimer {
-            Timber.i("timer is at: $it, ${timer.counter}")
+
+        // Log us
+        Timber.i("onCreate, savedInstanceState: $savedInstanceState")
+
+        // Init timer
+        DessertTimer {
+            Timber.i("timer is at: $it")
+        }.apply {
+            lifecycle.addObserver(this)
         }
-        //
-        Timber.i("onCreate called")
+
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+
     }
     override fun onRestart() {
         super.onRestart()
@@ -97,7 +98,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
     }
     override fun onStart() {
         super.onStart()
-        timer.start()
+//        timer.start()
         Timber.i("onStart called")
     }
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -114,8 +115,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
     }
     override fun onStop() {
         super.onStop()
-        timer.stop()
-        info("onStop, $timer")
+//        timer.stop()
+        info("onStop")
     }
     override fun onSaveInstanceState(outState: Bundle) {
         info("onSaveInstanceState")
@@ -129,7 +130,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
      * Updates the score when the dessert is clicked. Possibly shows a new dessert.
      */
     private fun onDessertClicked(view: View) {
-
         // Update the score
         revenue += currentDessert.price
         dessertsSold++
@@ -191,4 +191,5 @@ class MainActivity : AppCompatActivity(), LifecycleObserver, AnkoLogger {
         }
         return super.onOptionsItemSelected(item)
     }
+    
 }
