@@ -41,20 +41,28 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Log
         Timber.i("onCreate, savedInstanceState: $savedInstanceState")
 
-        //Restore or initialize state
-        currentDessert = savedInstanceState?.takeIf { it.containsKey("dessert") }?.run {
-            val id = getInt("dessert")
-            Desserts.all.find { id == it.id }?.also {
-                dessertsSold = getInt("sold")
-                revenue = getInt("revenue")
+        // Try to restore state from anywhere =)
+        val restoreBundle = savedInstanceState ?: Persistent.asBundle()
+        info("onCreate, restoreBundle: $restoreBundle")
+
+        // Initialize dessert, sales and revenue
+        currentDessert = restoreBundle?.takeIf { Persistent.hasDessert(it) }?.run {
+            val id = Persistent.dessert(this)
+            desserts.find { id == it.id }?.also {
+                dessertsSold = Persistent.sold(this)
+                revenue = Persistent.revenue(this)
             }
-        } ?: Desserts.first
+        } ?: desserts.first()
 
         // Init timer
-        DessertTimer(savedInstanceState?.getString("timer")?.toULong()) {
+        DessertTimer(restoreBundle?.run { Persistent.timer(this) }?.toULong()) {
             binding.timer = it.toString()
+            Persistent.save {
+                timer(it.toString())
+            }
         }.apply {
             timer = this
             lifecycle.addObserver(this)
@@ -82,8 +90,7 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
     }
     override fun onStart() {
         super.onStart()
-//        timer.start()
-        Timber.i("onStart called")
+        Timber.i("onStart, lifecycle.currentState; ${lifecycle.currentState}")
     }
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -91,7 +98,7 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
     }
     override fun onResume() {
         super.onResume()
-        info("onResume")
+        info("onResume, lifecycle.currentState; ${lifecycle.currentState}")
     }
     override fun onPause() {
         super.onPause()
@@ -99,18 +106,12 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
     }
     override fun onStop() {
         super.onStop()
-//        timer.stop()
-        info("onStop")
+        info("onStop, isFinishing: $isFinishing, lifecycle.currentState; ${lifecycle.currentState}")
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         info("onSaveInstanceState")
-        with (outState) {
-            putInt("dessert", currentDessert.id)
-            putInt("sold", dessertsSold)
-            putInt("revenue", revenue)
-            putString("timer", timer.valueStr)
-        }
+        outState.putAll(Persistent.asBundle())
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -124,19 +125,28 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
         revenue += currentDessert.price
         dessertsSold++
 
-        binding.revenue = revenue
-        binding.amountSold = dessertsSold
+        with (binding) {
+            revenue = this@DessertActivity.revenue
+            amountSold = dessertsSold
+        }
 
         // Show the next dessert
         showCurrentDessert()
+
+        // Update in persistent
+        Persistent.save {
+            revenue(this@DessertActivity.revenue)
+            sold(dessertsSold)
+            dessert(currentDessert.id)
+        }
     }
 
     /**
      * Determine which dessert to show.
      */
     private fun showCurrentDessert() {
-        var newDessert = Desserts.first
-        for (dessert in Desserts.all) {
+        var newDessert = desserts.first()
+        for (dessert in desserts) {
             if (dessertsSold >= dessert.startProductionAmount) {
                 newDessert = dessert
             }
@@ -151,6 +161,7 @@ class DessertActivity : AppCompatActivity(), AnkoLogger {
         if (newDessert != currentDessert) {
             currentDessert = newDessert
             binding.dessertButton.setImageResource(newDessert.imageId)
+            Persistent.dessert(currentDessert.id)
         }
     }
 
