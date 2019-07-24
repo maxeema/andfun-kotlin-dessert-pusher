@@ -21,4 +21,7 @@
     <color name="white">#ffffff</color>
     <color name="green">#6ab343</color>
     <color name="grey">#99000000</color>
+    <color name="sold">#FF6D00</color>
+    <color name="timer">#D500F9</color>
+    <color name="money">#00C853</color>
 </resources>

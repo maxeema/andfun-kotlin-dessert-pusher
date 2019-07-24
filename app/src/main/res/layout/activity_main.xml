@@ -38,7 +38,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bakery_back" />
+            android:src="@drawable/bakery_back" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/margin_end_guide"
@@ -81,7 +81,7 @@
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:scaleType="centerCrop"
-                tools:srcCompat="@drawable/oreo" />
+                tools:src="@drawable/oreo" />
 
             <ImageView
                 android:layout_width="@dimen/button_width"
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text='@{"$" + revenue.toString()}'
-            android:textColor="@color/green"
+            android:textColor="@color/money"
             android:textSize="@dimen/large_text_size"
             app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
@@ -118,8 +118,8 @@
             android:id="@+id/dessert_sold_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
             android:text="@string/dessert_sold"
+            android:textColor="@color/grey"
             android:textSize="@dimen/medium_text_size"
             app:layout_constraintBaseline_toBaselineOf="@+id/amount_sold_text"
             app:layout_constraintStart_toStartOf="@+id/margin_start_guide" />
@@ -129,10 +129,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_spacing"
-            android:fontFamily="sans-serif-medium"
             android:paddingTop="@dimen/default_spacing"
             android:text="@{amountSold.toString()}"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@color/sold"
             android:textSize="@dimen/medium_text_size"
             app:layout_constraintBottom_toTopOf="@+id/revenue_text"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
@@ -143,11 +142,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:fontFamily="sans-serif-medium"
             android:text="@{timer}"
             android:textColor="@color/grey"
             android:textSize="@dimen/small_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/clock"
+            app:layout_constraintBaseline_toBaselineOf="@+id/revenue_text"
             app:layout_constraintStart_toEndOf="@+id/clock"
             tools:text="100" />
 
@@ -156,9 +154,10 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/medium_text_size"
             android:scaleType="centerInside"
-            app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
+            app:layout_constraintBottom_toBottomOf="@+id/timer_text"
             app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
-            app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+            android:src="@android:drawable/ic_lock_idle_alarm"
+            android:tint="@color/timer"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
