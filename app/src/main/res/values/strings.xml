@@ -15,11 +15,25 @@
   -->
 
 <resources>
-    <string name="app_name">Dessert Pusher</string>
-    <string name="dollar_sign">$</string>
-    <string name="zero">0</string>
-    <string name="dessert_sold">Desserts Sold</string>
-    <string name="share_text">I\'ve clicked %1$d Desserts for a total of %2$d$ #AndroidDessertClicker</string>
+    <string name="app_name">Desserts</string>
+    <string name="eaten">eaten</string>
+    <string name="spent">spent</string>
+    <string name="share_text">I\'ve eaten %1s desserts for a total of %2s, at %3s app</string>
     <string name="share">Share</string>
-    <string name="sharing_not_available">Sharing Not Available</string>
+    <string name="sharing_not_available">Sharing not available</string>
+    <!-- version names -->
+    <string name="pie">Pie</string>
+    <string name="oreo">Oreo</string>
+    <string name="nougat">Nougat</string>
+    <string name="marshmallow">Marshmallow</string>
+    <string name="lollipop">Lollipop</string>
+    <string name="kitkat">KitKat</string>
+    <string name="jelly_bean">Jelly Bean</string>
+    <string name="ice_cream_sandwich">Ice-Cream</string>
+    <string name="honeycomb">Honeycomb</string>
+    <string name="gingerbread">Gingerbread</string>
+    <string name="froyo">Froyo</string>
+    <string name="eclair">Eclair</string>
+    <string name="donut">Donut</string>
+    <string name="cupcake">Cupcake</string>
 </resources>

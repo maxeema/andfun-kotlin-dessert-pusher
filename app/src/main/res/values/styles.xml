@@ -16,13 +16,17 @@
 
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
         <item name="fontFamily">@font/berkshire_swash</item>
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+<!--        <item name="actionBarStyle">@style/dessertActionBarStyle</item>--> <!-- if we want to customize action bar style -->
+<!--        <item name="windowActionBarOverlay">true</item>--> <!-- if we want to show action bar atop of content -->
     </style>
+
+<!--    <style name="dessertActionBarStyle" parent="Widget.AppCompat.ActionBar">-->
+<!--        <item name="background">@color/action_bar</item>  by default action bar background is colorPrimary -->
+<!--    </style>-->
 
 </resources>

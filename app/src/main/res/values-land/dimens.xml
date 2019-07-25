@@ -14,8 +14,10 @@
   ~ limitations under the License.
   -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/white" />
-    <corners android:radius="@dimen/corner_radius" />
-</shape>
+<resources>
+    <dimen name="default_spacing">10dp</dimen>
+    <dimen name="button_width">125dp</dimen>
+    <dimen name="button_height">125dp</dimen>
+    <dimen name="medium_text_size">18sp</dimen>
+    <dimen name="large_text_size">23sp</dimen>
+</resources>

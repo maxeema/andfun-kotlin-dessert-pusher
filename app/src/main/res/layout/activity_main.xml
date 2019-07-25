@@ -17,12 +17,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".DessertActivity">
+    tools:context=".DesActivity">
 
     <data>
-        <variable name="revenue" type="Integer" />
-        <variable name="amountSold" type="Integer" />
-        <variable name="timer" type="String" />
+        <variable name="da" type="com.example.android.desserts.DesActivity.Data" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,15 +28,15 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/background_image"
+            android:id="@+id/backgroundImage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:src="@drawable/bakery_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/bakery_back" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/margin_end_guide"
@@ -62,102 +60,146 @@
             app:layout_constraintGuide_percent=".05" />
 
         <ImageSwitcher
-            android:id="@+id/dessert_button"
+            android:id="@+id/dessertImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:animateFirstView="false"
+            android:animateFirstView="false" android:clickable="true"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:inAnimation="@anim/sweet_in"
-            android:onClick="consumeDessert"
-            android:outAnimation="@anim/sweet_out"
-            app:layout_constraintBottom_toTopOf="@+id/white_background"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="50dp">
-
+            android:padding="50dp"
+            app:layout_constraintBottom_toTopOf="@id/box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
             <ImageView
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/oreo" />
-
+                tools:src="@drawable/icecreamsandwich" />
             <ImageView
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:scaleType="centerCrop" />
         </ImageSwitcher>
 
-        <!-- Code for white box at the bottom, using ShapeDrawable defined in the drawable folder -->
-
         <View
-            android:id="@+id/white_background"
+            android:id="@+id/box"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/white_box"
-            android:visibility="visible"
+            android:background="@drawable/ic_box"
+            android:padding="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/amount_sold_text"
-            android:padding="30dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/dessertName" />
 
         <TextView
-            android:id="@+id/revenue_text"
+            android:id="@+id/spentMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{"$" + revenue.toString()}'
-            android:textColor="@color/money"
-            android:textSize="@dimen/large_text_size"
+            android:paddingTop="@dimen/default_spacing"
             app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
-            tools:text="$92" />
+            app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
+            android:textColor="@color/money"
+            android:textSize="@dimen/medium_text_size"
+            android:text='@{da.spent}'
+            tools:text="$92"
+            />
 
         <TextView
-            android:id="@+id/dessert_sold_text"
+            android:id="@+id/spent_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dessert_sold"
-            android:textColor="@color/grey"
-            android:textSize="@dimen/medium_text_size"
-            app:layout_constraintBaseline_toBaselineOf="@+id/amount_sold_text"
-            app:layout_constraintStart_toStartOf="@+id/margin_start_guide" />
+            android:paddingStart="6dp"
+            android:text="@string/spent"
+            android:textColor="@color/text"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
+            app:layout_constraintStart_toEndOf="@+id/spentMoney" />
 
         <TextView
-            android:id="@+id/amount_sold_text"
+            android:id="@+id/eaten_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_spacing"
-            android:paddingTop="@dimen/default_spacing"
-            android:text="@{amountSold.toString()}"
-            android:textColor="@color/sold"
-            android:textSize="@dimen/medium_text_size"
-            app:layout_constraintBottom_toTopOf="@+id/revenue_text"
+            android:text="@string/eaten"
+            android:textColor="@color/text"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
+            app:layout_constraintTop_toTopOf="@id/box" />
+
+        <TextView
+            android:id="@+id/eatenAmount"
+            app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
+            app:layout_constraintTop_toBottomOf="@+id/eaten_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{da.eaten}'
+            android:textColor="@color/accent"
+            android:textSize="@dimen/medium_text_size"
             tools:text="12" />
 
         <TextView
-            android:id="@+id/timer_text"
+            android:id="@+id/clock_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="@{timer}"
-            android:textColor="@color/grey"
+            android:text="@{da.clock}"
+            android:textColor="@color/time"
             android:textSize="@dimen/small_text_size"
-            app:layout_constraintBaseline_toBaselineOf="@+id/revenue_text"
-            app:layout_constraintStart_toEndOf="@+id/clock"
+            app:layout_constraintBaseline_toBaselineOf="@+id/eatenAmount"
+            app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
             tools:text="100" />
 
         <ImageView
-            android:id="@+id/clock"
+            android:id="@+id/clock_img"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/medium_text_size"
             android:scaleType="centerInside"
-            app:layout_constraintBottom_toBottomOf="@+id/timer_text"
-            app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
             android:src="@android:drawable/ic_lock_idle_alarm"
-            android:tint="@color/timer"/>
+            android:tint="@color/text"
+            app:layout_constraintBottom_toTopOf="@+id/clock_text"
+            app:layout_constraintStart_toStartOf="@+id/margin_start_guide" />
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/dessertName"
+            app:layout_constraintBottom_toTopOf="@id/spentMoney"
+            app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
+            app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
+            android:paddingTop="@dimen/default_spacing"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/name"
+            android:textSize="@dimen/large_text_size"
+            android:text="@{da.name}"
+            tools:text="Ice-Cream" />
+
+        <TextView
+            android:id="@+id/dessertPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:paddingTop="@dimen/default_spacing"
+            android:text="@{da.price}"
+            android:textColor="@color/primary"
+            app:layout_constraintStart_toEndOf="@+id/dessertName"
+            app:layout_constraintTop_toTopOf="@id/box"
+            tools:text="$15" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/eatFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="eatDessert"
+            android:src="@drawable/ic_cart"
+            app:layout_constraintBottom_toTopOf="@+id/box"
+            app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

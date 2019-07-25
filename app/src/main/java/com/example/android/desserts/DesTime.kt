@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.dessertpusher
+package com.example.android.desserts
 
 import android.os.Handler
 import androidx.annotation.IntRange
@@ -22,8 +22,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class DessertTimer(initial: ULong? = null, @IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
-                   tikTak: (counter: ULong) -> Unit) : LifecycleObserver {
+class DesTime(initial: ULong? = null, @IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
+              tikTak: (counter: String) -> Unit) : LifecycleObserver {
 
     init { require(interval >= MIN_INTERVAL.toUInt()) }
 
@@ -42,7 +42,7 @@ class DessertTimer(initial: ULong? = null, @IntRange(from=MIN_INTERVAL.toLong())
     private var active = false
     private var counter = initial ?: ULong.MIN_VALUE
     private val handler : Handler by lazy { Handler() }
-    private val runnable : () -> Unit = { tikTak(++counter); post() }
+    private val runnable : () -> Unit = { counter++; tikTak(valueStr); post() }
 
     private fun post() = handler.postDelayed(runnable, interval.toLong())
 

@@ -1,12 +1,12 @@
-package com.example.android.dessertpusher
+package com.example.android.desserts
 
 import android.app.Application
 import timber.log.Timber
 
-class DessertApp : Application() {
+class DesApp : Application() {
 
     companion object {
-        private lateinit var appRef : DessertApp
+        private lateinit var appRef : DesApp
         val instance
             get() = appRef
     }

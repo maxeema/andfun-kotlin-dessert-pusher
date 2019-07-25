@@ -5,7 +5,7 @@
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
   ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,8 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <color name="primary">#F50057</color>
-    <color name="primary_dark">#C51162</color>
-    <color name="accent">#00E5FF</color>
-    <!---->
-    <color name="name">#C6FF00</color>
-    <color name="text">#ddffffff</color>
-    <color name="money">#00C853</color>
-    <color name="time">#FF9100</color>
-    <color name="price">#00E676</color>
-</resources>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#dd414141" />
+    <corners android:radius="@dimen/corner_radius" />
+</shape>
