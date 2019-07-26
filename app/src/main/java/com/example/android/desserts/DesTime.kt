@@ -23,7 +23,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
 class DesTime(initial: ULong? = null, @IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
-              tikTak: (counter: String) -> Unit) : LifecycleObserver {
+              tikTak: DesTime.()-> Unit) : LifecycleObserver {
 
     init { require(interval >= MIN_INTERVAL.toUInt()) }
 
@@ -42,7 +42,7 @@ class DesTime(initial: ULong? = null, @IntRange(from=MIN_INTERVAL.toLong()) priv
     private var active = false
     private var counter = initial ?: ULong.MIN_VALUE
     private val handler : Handler by lazy { Handler() }
-    private val runnable : () -> Unit = { counter++; tikTak(valueStr); post() }
+    private val runnable : ()->Unit = { counter++; this.tikTak(); post() }
 
     private fun post() = handler.postDelayed(runnable, interval.toLong())
 

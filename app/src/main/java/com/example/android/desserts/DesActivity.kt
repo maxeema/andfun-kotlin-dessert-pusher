@@ -20,6 +20,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.core.view.GestureDetectorCompat
@@ -38,6 +39,95 @@ import kotlin.math.atan2
 
 class DesActivity : AppCompatActivity(), AnkoLogger {
 
+    private var          des   = randomDessert(null)
+    private var          spent = 0
+    private var          eaten = 0
+    private lateinit var time  : DesTime
+
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.i("onCreate, savedInstanceState: $savedInstanceState")
+
+        // Use Data Binding
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.da = Data(this)
+
+        // Initialize trying to restore
+        (savedInstanceState ?: Persistent.asBundle()).apply {
+            info("  init trying to restore : $this")
+            eaten = Persistent.eaten(this)
+            spent = Persistent.spent(this)
+            time  = DesTime(Persistent.clock(this)?.toULong()) {
+                binding.invalidateAll()
+                Persistent.clock(valueStr)
+            }
+        }
+
+        // Register Lifecycle observers
+        lifecycle.addObserver(time)
+        lifecycle.addObserver(Persistent)
+
+        // Handle swipe next/prev events
+        dessertImage.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
+        dessertImage.setImageResource(des.imageId)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        info("onRestart")
+        // Show random dessert on every app comeback
+        des = randomDessert(des)
+        binding.invalidateAll()
+        (dessertImage.currentView as ImageView).setImageResource(des.imageId)
+        fadeInAnimation.apply {
+            dessertImage.currentView.animation = this
+            dessertName.animation = this
+            start()
+        }
+    }
+    override fun onStart() {
+        super.onStart()
+        info("onStart, lifecycle.currentState; ${lifecycle.currentState}")
+    }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        info("onRestoreInstanceState, savedInstanceState: $savedInstanceState")
+    }
+    override fun onResume() {
+        super.onResume()
+        info("onResume, lifecycle.currentState; ${lifecycle.currentState}")
+    }
+    override fun onPostResume() {
+        super.onPostResume()
+        info("onPostResume, lifecycle.currentState; ${lifecycle.currentState}")
+    }
+    override fun onPause() {
+        super.onPause()
+        info("onPause, lifecycle.currentState; ${lifecycle.currentState}")
+    }
+    override fun onStop() {
+        super.onStop()
+        info("onStop, isFinishing: lifecycle.currentState; ${lifecycle.currentState}")
+        // Free MediaPlayers resources
+        mpEat  = null
+        mpNext = null
+        mpPrev = null
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        info("onSaveInstanceState")
+        outState.putAll(Persistent.asBundle())
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        info("onDestroy")
+    }
+
+    /**
+     * Data for bound views
+     */
     class Data(private val a: DesActivity) {
         private companion object {
             // always use the same currency and number formatting cuz we support only English localization
@@ -60,96 +150,11 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
         val clock get() = numberFormatNoGrouping.format(a.time.value.toLong()) ?: a.time.valueStr
     }
 
-    private var spent = 0
-    private var eaten = 0
-
-    private lateinit var  des : Dessert
-    private lateinit var time : DesTime
-
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //Log
-        Timber.i("onCreate, savedInstanceState: $savedInstanceState")
-
-        // Use Data Binding to get reference to the views
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.da = Data(this)
-
-        // Try to restore state from anywhere =)
-        val restoreBundle = savedInstanceState ?: Persistent.asBundle()
-        info("onCreate, restoreBundle: $restoreBundle")
-
-        // Initialize dessert, eaten and spent
-        des = restoreBundle?.takeIf { Persistent.hasDessert(it) }?.run {
-            val id = Persistent.dessert(this)
-            desserts.find { id == it.id }?.also {
-                eaten = Persistent.eaten(this)
-                spent = Persistent.spent(this)
-            }
-        } ?: desserts.first()
-
-        // Init time
-        DesTime(restoreBundle?.run { Persistent.clock(this) }?.toULong()) {
-            binding.invalidateAll()
-            Persistent.save {
-                clock(it)
-            }
-        }.apply {
-            time = this
-            lifecycle.addObserver(this)
-        }
-
-        dessertImage.setImageResource(des.imageId)
-        dessertImage.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        info("onRestart")
-    }
-    override fun onStart() {
-        super.onStart()
-        Timber.i("onStart, lifecycle.currentState; ${lifecycle.currentState}")
-    }
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        info("onRestoreInstanceState, savedInstanceState: $savedInstanceState")
-    }
-    override fun onResume() {
-        super.onResume()
-        info("onResume, lifecycle.currentState; ${lifecycle.currentState}")
-    }
-    override fun onPostResume() {
-        super.onPostResume()
-        info("onPostResume, lifecycle.currentState; ${lifecycle.currentState}")
-    }
-    override fun onPause() {
-        super.onPause()
-        info("onPause, lifecycle.currentState; ${lifecycle.currentState}")
-    }
-    override fun onStop() {
-        super.onStop()
-        info("onStop, isFinishing: $isFinishing, lifecycle.currentState; ${lifecycle.currentState}")
-        mpEat  = null
-        mpNext = null
-        mpPrev = null
-    }
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        info("onSaveInstanceState")
-        outState.putAll(Persistent.asBundle())
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        info("onDestroy")
-    }
-
     /**
-     * Menu methods
+     * Menu functional
      */
     private var shareMenuItem : MenuItem? = null
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         if (eaten == 0) menu.findItem(R.id.shareMenuButton).apply {
@@ -173,17 +178,15 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
     }
 
     /**
-     * Desserts methods
+     * Desserts functional
      */
-
     fun eatDessert(view: View) {
         spent += des.price
         eaten++
 
-        Persistent.save {
+        Persistent.apply {
             spent(spent)
             eaten(eaten)
-            dessert(des.id)
         }
 
         fadeInAnimation.apply {
@@ -225,10 +228,6 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
             start()
         }
 
-        Persistent.save {
-            dessert(des.id)
-        }
-
         (if (next) mpNext else mpPrev)!!.apply {
             seekTo(0)
             start()
@@ -237,6 +236,9 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
         binding.invalidateAll()
     }
 
+    /**
+     * MediaPlayers
+     */
     private var mpEat : MediaPlayer? = null
         get() = field ?: MediaPlayer.create(this, R.raw.eat).apply { field = this }
         set(value) { if (value == null) field?.release(); field = value }
@@ -247,6 +249,9 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
         get() = field ?: MediaPlayer.create(this, R.raw.sweet_prev).apply { field = this }
         set(value) { if (value == null) field?.release(); field = value }
 
+    /**
+     * Animations
+     */
     private val fadeInAnimation         by lazy { AnimationUtils.loadAnimation(this, android.R.anim.fade_in) }
 
     private val newDessertAnimation     by lazy { AnimationUtils.loadAnimation(this, R.anim.sweet_new) }
@@ -256,6 +261,9 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
     private val prevOutDessertAnimation by lazy { AnimationUtils.loadAnimation(this, R.anim.sweet_prev_out) }
     private val nextOutDessertAnimation by lazy { AnimationUtils.loadAnimation(this, R.anim.sweet_next_out) }
 
+    /**
+     * Swiping
+     */
     private val gestureDetector : GestureDetectorCompat by lazy { GestureDetectorCompat(this, object: GestureDetector.SimpleOnGestureListener() {
         override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocity1: Float, velocity2: Float) : Boolean {
             if (e1 == null || e2 == null) return false
