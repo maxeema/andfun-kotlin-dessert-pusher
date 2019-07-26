@@ -71,11 +71,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/icecreamsandwich" />
+                tools:src="@drawable/pie" />
             <ImageView
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
@@ -162,19 +163,20 @@
             app:layout_constraintStart_toStartOf="@+id/margin_start_guide" />
 
         <TextView
-            android:textAlignment="center"
             android:id="@+id/dessertName"
-            app:layout_constraintBottom_toTopOf="@id/spentMoney"
-            app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
-            app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
-            android:paddingTop="@dimen/default_spacing"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/default_spacing"
+            android:text="@{da.name}"
+            android:textAlignment="center"
             android:textColor="@color/name"
             android:textSize="@dimen/large_text_size"
-            android:text="@{da.name}"
-            tools:text="Ice-Cream" />
+            app:layout_constraintBottom_toTopOf="@id/spentMoney"
+            app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toStartOf="@+id/margin_start_guide"
+            tools:text="Pie" />
 
         <TextView
             android:id="@+id/dessertPrice"
