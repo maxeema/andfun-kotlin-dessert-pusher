@@ -39,7 +39,7 @@ import kotlin.math.atan2
 
 class DesActivity : AppCompatActivity(), AnkoLogger {
 
-    private var          des   = randomDessert(null)
+    private var          des   = randomDessert()
     private var          spent = 0
     private var          eaten = 0
     private lateinit var time  : DesTime

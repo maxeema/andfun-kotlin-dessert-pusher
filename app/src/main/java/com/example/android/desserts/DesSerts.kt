@@ -23,7 +23,7 @@ val desserts = listOf(
     Dessert(P,                  R.string.pie,                R.drawable.pie,                8)
 )
 
-fun randomDessert(not: Dessert?) : Dessert {
+fun randomDessert(not: Dessert? = null) : Dessert {
     while(true) {
         val des = desserts[Random.nextInt(desserts.size)]
         if (des != not) return des
