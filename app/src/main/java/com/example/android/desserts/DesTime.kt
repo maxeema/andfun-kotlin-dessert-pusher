@@ -22,15 +22,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class DesTime(initial: ULong? = null, @IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
-              tikTak: DesTime.()-> Unit) : LifecycleObserver {
-
-    init { require(interval >= MIN_INTERVAL.toUInt()) }
+class DesTime(initial: ULong? = null,
+              @IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
+              tikTak: DesTime.()-> Unit)
+    : LifecycleObserver {
 
     private companion object {
         private const val MIN_INTERVAL = 500
         private const val DEF_INTERVAL = 1000
     }
+
+    init { require(interval >= MIN_INTERVAL.toUInt()) }
 
     // Current value
     val value       get() = counter
