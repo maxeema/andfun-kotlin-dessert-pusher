@@ -20,7 +20,7 @@
     tools:context=".DesActivity">
 
     <data>
-        <variable name="da" type="com.example.android.desserts.DesActivity.Data" />
+        <variable name="da" type="maxeem.america.desserts.DesActivity.Data" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

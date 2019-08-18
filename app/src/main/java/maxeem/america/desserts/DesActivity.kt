@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.desserts
+package maxeem.america.desserts
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.core.view.GestureDetectorCompat
 import androidx.databinding.DataBindingUtil
-import com.example.android.desserts.databinding.ActivityMainBinding
+import maxeem.america.desserts.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -136,7 +136,7 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
             private val CURRENCY = Currency.getInstance("USD")
         }
         private val currencyFormat = NumberFormat.getCurrencyInstance(LOCALE).apply {
-            currency = CURRENCY
+            setCurrency(CURRENCY)
             maximumFractionDigits = 0
         }
         private val numberFormat = NumberFormat.getNumberInstance(LOCALE)
@@ -281,7 +281,6 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
             /*right*/  in -45..45                        -> MotionEvent.EDGE_RIGHT
             else -> Int.MIN_VALUE
         }
-    })
-    }
+    })}
 
 }

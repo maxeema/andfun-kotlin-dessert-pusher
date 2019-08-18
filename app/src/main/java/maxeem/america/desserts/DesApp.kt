@@ -1,4 +1,4 @@
-package com.example.android.desserts
+package maxeem.america.desserts
 
 import android.app.Application
 import timber.log.Timber
