@@ -16,6 +16,7 @@
 
 <resources>
     <string name="app_name">Desserts</string>
+    <string name="app_title">Android Desserts</string>
     <string name="eaten">eaten</string>
     <string name="spent">spent</string>
     <string name="share_text">I\'ve eaten %1s desserts for a total of %2s, at %3s app</string>

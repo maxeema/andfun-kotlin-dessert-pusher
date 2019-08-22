@@ -25,8 +25,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.core.view.GestureDetectorCompat
 import androidx.databinding.DataBindingUtil
-import maxeem.america.desserts.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import maxeem.america.desserts.databinding.ActivityMainBinding
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.longToast
@@ -49,6 +49,7 @@ class DesActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.i("onCreate, savedInstanceState: $savedInstanceState")
+        supportActionBar?.title = getString(R.string.app_title)
 
         // Use Data Binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
