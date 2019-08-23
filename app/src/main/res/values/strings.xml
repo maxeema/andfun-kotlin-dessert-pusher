@@ -19,7 +19,7 @@
     <string name="app_title">Android Desserts</string>
     <string name="eaten">eaten</string>
     <string name="spent">spent</string>
-    <string name="share_text">I\'ve eaten %1s desserts for a total of %2s, at %3s app</string>
+    <string name="share_text">I\'ve eaten %1s desserts for a total of %2s at %3s app</string>
     <string name="share">Share</string>
     <string name="sharing_not_available">Sharing not available</string>
     <!-- version names -->
