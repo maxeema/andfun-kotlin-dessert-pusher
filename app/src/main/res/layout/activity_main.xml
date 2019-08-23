@@ -194,13 +194,13 @@
             android:id="@+id/eatFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:onClick="eatDessert"
-            app:srcCompat="@drawable/ic_cart"
             app:layout_constraintBottom_toTopOf="@+id/box"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95" />
+            app:layout_constraintVertical_bias="0.95"
+            app:srcCompat="@drawable/ic_plus"
+            app:useCompatPadding="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
