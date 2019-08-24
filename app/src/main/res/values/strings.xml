@@ -15,13 +15,18 @@
   -->
 
 <resources>
-    <string name="app_name">Desserts</string>
-    <string name="app_title">Android Desserts</string>
-    <string name="eaten">eaten</string>
-    <string name="spent">spent</string>
-    <string name="share_text">I\'ve eaten %1s desserts for a total of %2s at %3s app</string>
-    <string name="share">Share</string>
-    <string name="sharing_not_available">Sharing not available</string>
+    <string name="app_name">Android Desserts</string>
+    <string name="app_label">Desserts</string>
+    <string name="app_author">Maxeem America, 2019</string>
+    <string name="app_description" formatted="false">
+        <![CDATA[
+            app made<br/>
+            by taking <a href="https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012">Udacity</a> course
+            <br/><br/>
+            <a href="https://github.com/maxeema/andfun-kotlin-dessert-pusher">Project GitHub Page</a>
+        ]]>
+    </string>
+    <string name="about">About</string>
     <!-- version names -->
     <string name="pie">Pie</string>
     <string name="oreo">Oreo</string>
@@ -37,4 +42,13 @@
     <string name="eclair">Eclair</string>
     <string name="donut">Donut</string>
     <string name="cupcake">Cupcake</string>
+    <!---->
+    <string name="made">made</string>
+    <string name="earned">earned</string>
+    <string name="share_text_one">I\'ve made %1s dessert which costs %2s at %3s app</string>
+    <string name="share_text_many">I\'ve made %1s desserts for a total of %2s at %3s app</string>
+    <string name="share">Share</string>
+    <string name="sharing_not_available">Sharing not available</string>
+    <string name="tip_swipe_dessert">To change dessert swipe it</string>
+    <string name="got_it">Got it</string>
 </resources>

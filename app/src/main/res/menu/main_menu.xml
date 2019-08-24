@@ -17,10 +17,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/shareMenuButton"
-        android:enabled="true"
+        android:id="@+id/shareMenuItem"
         android:icon="?android:attr/actionModeShareDrawable"
         android:title="@string/share"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+    <item android:id="@+id/aboutFragment"
+        android:title="@string/about"
+        app:showAsAction="never"/>
 </menu>

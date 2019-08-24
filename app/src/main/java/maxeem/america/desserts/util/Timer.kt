@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package maxeem.america.desserts
+package maxeem.america.desserts.util
 
 import android.os.Handler
 import androidx.annotation.IntRange
@@ -22,9 +22,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class DesTime(initial: ULong? = null,
-              @IntRange(from=MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
-              tikTak: DesTime.()-> Unit)
+class Timer(initial: ULong? = null,
+            @IntRange(from= MIN_INTERVAL.toLong()) private val interval: UInt = DEF_INTERVAL.toUInt(),
+            tikTak: Timer.()-> Unit)
     : LifecycleObserver {
 
     private companion object {

@@ -21,7 +21,8 @@
     <!---->
     <color name="name">#C6FF00</color>
     <color name="text">#ddffffff</color>
-    <color name="money">#00C853</color>
+    <color name="textDarken">#bbbbbb</color>
+    <color name="bucks">#00C853</color>
     <color name="time">#FF9100</color>
     <color name="price">#00E676</color>
 </resources>
