@@ -17,13 +17,12 @@
 <resources>
     <string name="app_name">Android Desserts</string>
     <string name="app_label">Desserts</string>
-    <string name="app_author">Maxeem America, 2019</string>
+    <string name="app_author">© Maxeem America, 2019</string>
     <string name="app_description" formatted="false">
         <![CDATA[
-            app made<br/>
-            by taking <a href="https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012">Udacity</a> course
+            Made by taking <a href="https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012">Udacity course</a>
             <br/><br/>
-            <a href="https://github.com/maxeema/andfun-kotlin-dessert-pusher">Project GitHub Page</a>
+            App <a href="https://github.com/maxeema/andfun-kotlin-dessert-pusher">GitHub page</a>
         ]]>
     </string>
     <string name="about">About</string>
@@ -35,7 +34,7 @@
     <string name="lollipop">Lollipop</string>
     <string name="kitkat">KitKat</string>
     <string name="jelly_bean">Jelly Bean</string>
-    <string name="ice_cream_sandwich">Ice-Cream</string>
+    <string name="ice_cream_sandwich">Ice-Cream S.</string>
     <string name="honeycomb">Honeycomb</string>
     <string name="gingerbread">Gingerbread</string>
     <string name="froyo">Froyo</string>
@@ -49,6 +48,6 @@
     <string name="share_text_many">I\'ve made %1s desserts for a total of %2s at %3s app</string>
     <string name="share">Share</string>
     <string name="sharing_not_available">Sharing not available</string>
-    <string name="tip_swipe_dessert">To change dessert swipe it</string>
+    <string name="tip_swipe_dessert">To change dessert - swipe it</string>
     <string name="got_it">Got it</string>
 </resources>

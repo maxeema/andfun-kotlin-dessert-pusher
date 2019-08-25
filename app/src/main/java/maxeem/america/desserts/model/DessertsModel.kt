@@ -3,10 +3,8 @@ package maxeem.america.desserts.model
 import androidx.lifecycle.*
 import maxeem.america.desserts.data.desserts
 import maxeem.america.desserts.data.randomDessert
-import maxeem.america.desserts.util.Prefs
+import maxeem.america.desserts.util.*
 import maxeem.america.desserts.util.Timer
-import maxeem.america.desserts.util.asImmutable
-import maxeem.america.desserts.util.asMutable
 import java.text.NumberFormat
 import java.util.*
 
@@ -52,12 +50,12 @@ class DessertsModel(state: SavedStateHandle) : ViewModel() {
     val timerLifecycleObserver get() = timer as LifecycleObserver
 
     val dessertMadeEvent = MutableLiveData<Int?>().asImmutable()
-    val dessertSwipeEvent = MutableLiveData<Boolean?>().asImmutable()
+    val dessertSwipeEvent = MutableLiveData<Bool?>().asImmutable()
 
     fun handleDessertMadeEvent() { dessertMadeEvent.asMutable().value = null }
     fun handleDessertSwipeEvent() { dessertSwipeEvent.asMutable().value = null }
 
-    fun swipeDessert(next: Boolean) = true.also {
+    fun swipeDessert(next: Bool) = true.also {
         val idx = desserts.indexOf(requireNotNull(dessert.value))
 
         dessert.value = when (next) {

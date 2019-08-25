@@ -16,15 +16,15 @@
 
 <resources>
     <dimen name="default_spacing">10dp</dimen>
-<!--    <dimen name="dessert_width">114dp</dimen>-->
-<!--    <dimen name="dessert_height">160dp</dimen>-->
-<!--    <dimen name="dessert_margin_bottom">90dp</dimen>-->
-    <dimen name="small_text_size">14sp</dimen>
-    <dimen name="medium_text_size">18sp</dimen>
-    <dimen name="large_text_size">23sp</dimen>
+    <dimen name="dessert_width">90dp</dimen>
+    <dimen name="dessert_height">126dp</dimen>
+    <dimen name="dessert_margin_bottom">70dp</dimen> <!-- tied to dessert_height, if update dessert_height - it should be updated accordingly -->
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="large_text_size">21sp</dimen>
 <!--    <dimen name="corner_radius">4dp</dimen>-->
 
-    <dimen name="snackbar_margin_vertical">14dp</dimen>
-    <dimen name="snackbar_margin_horizontal">30dp</dimen>
-    <dimen name="author_translation_y">100sp</dimen>
+    <dimen name="snackbar_margin_vertical">10dp</dimen>
+    <dimen name="snackbar_margin_horizontal">10dp</dimen>
+    <dimen name="author_translation_y">90sp</dimen>
 </resources>

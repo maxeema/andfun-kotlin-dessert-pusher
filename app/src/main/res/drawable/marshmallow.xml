@@ -15,10 +15,13 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="500dp"
-    android:height="700dp"
+    android:width="@dimen/dessert_width"
+    android:height="@dimen/dessert_height"
     android:viewportWidth="500"
     android:viewportHeight="700">
+
+  <group android:scaleX="1.1" android:scaleY="1.1"
+    android:translateY="-40" android:translateX="-30">
   <path
       android:fillColor="#C2CACC"
       android:pathData="M167.8,451.8c-50.3,0 -91,13.7 -91,30.7c0,17 40.8,30.7 91,30.7c1.2,0 2.4,0 3.6,0c-3.8,3.4 -5.9,7.1 -5.9,10.9c0,17 40.8,30.7 91,30.7c50.3,0 91,-13.7 91,-30.7c0,-17 -40.8,-30.7 -91,-30.7c-1.2,0 -2.4,0 -3.6,0c3.8,-3.4 5.9,-7.1 5.9,-10.9C258.8,465.5 218,451.8 167.8,451.8" />
@@ -43,4 +46,5 @@
   <path
       android:fillColor="#F5F5F5"
       android:pathData="M337.8,363c0,10.6 -41.9,33 -87.1,33s-76.3,-22.4 -76.3,-33s42.6,-14.4 87.8,-14.4S337.8,352.4 337.8,363z" />
+  </group>
 </vector>

@@ -16,8 +16,9 @@
 
 <resources>
     <dimen name="default_spacing">16dp</dimen>
-    <dimen name="button_width">150dp</dimen>
-    <dimen name="button_height">150dp</dimen>
+    <dimen name="dessert_width">114dp</dimen>
+    <dimen name="dessert_height">160dp</dimen>
+    <dimen name="dessert_margin_bottom">90dp</dimen>
     <dimen name="small_text_size">16sp</dimen>
     <dimen name="medium_text_size">20sp</dimen>
     <dimen name="large_text_size">33sp</dimen>
@@ -25,4 +26,5 @@
 
     <dimen name="snackbar_margin_vertical">30dp</dimen>
     <dimen name="snackbar_margin_horizontal">16dp</dimen>
+    <dimen name="author_translation_y">110sp</dimen>
 </resources>

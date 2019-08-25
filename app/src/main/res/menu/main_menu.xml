@@ -18,10 +18,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/shareMenuItem"
-        android:icon="?android:attr/actionModeShareDrawable"
+        android:icon="@drawable/ic_share"
         android:title="@string/share"
         app:showAsAction="always" />
     <item android:id="@+id/aboutFragment"
         android:title="@string/about"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_info"
+        app:showAsAction="always"/>
 </menu>

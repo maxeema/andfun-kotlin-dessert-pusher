@@ -4,9 +4,9 @@
     android:viewportWidth="750"
     android:viewportHeight="750">
     <path
-        android:fillColor="#C6FF00"
+        android:fillColor="@color/secondary_variant"
         android:pathData="M0,0h750v750h-750z" />
     <path
-        android:fillColor="@color/accent"
+        android:fillColor="@color/secondary"
         android:pathData="M0,322h750v428h-750z" />
 </vector>

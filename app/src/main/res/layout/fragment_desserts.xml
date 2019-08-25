@@ -28,15 +28,15 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/backgroundImage"
+            android:id="@+id/bg"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/bakery_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bakery_back" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/margin_end_guide"
@@ -63,24 +63,28 @@
             android:id="@+id/dessert_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:animateFirstView="false" android:clickable="true"
+            android:animateFirstView="false"
+            android:clickable="true"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:padding="50dp"
             app:imageResource="@{ model.dessertImage }"
-            app:layout_constraintBottom_toTopOf="@id/box"
+            app:layout_constraintBottom_toBottomOf="@+id/box"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dessert_margin_bottom"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/pie" />
+                tools:srcCompat="@drawable/pie" />
+
             <ImageView
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dessert_margin_bottom"
                 android:scaleType="centerCrop" />
         </ImageSwitcher>
 
@@ -115,7 +119,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="6dp"
             android:text="@string/earned"
-            android:textColor="@color/text"
+            android:textColor="@color/on_box"
             android:textSize="@dimen/small_text_size"
             app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
             app:layout_constraintStart_toEndOf="@+id/money_spent" />
@@ -125,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/made"
-            android:textColor="@color/text"
+            android:textColor="@color/on_box"
             android:textSize="@dimen/small_text_size"
             app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
@@ -138,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{ model.madeAmount }"
-            android:textColor="@color/accent"
+            android:textColor="@color/secondary"
             android:textSize="@dimen/medium_text_size"
             tools:text="12" />
 
@@ -159,7 +163,7 @@
             android:layout_height="@dimen/medium_text_size"
             android:scaleType="centerInside"
             app:srcCompat="@android:drawable/ic_lock_idle_alarm"
-            android:tint="@color/text"
+            android:tint="@color/on_box"
             app:layout_constraintBottom_toTopOf="@+id/app_time"
             app:layout_constraintStart_toStartOf="@+id/margin_start_guide" />
 

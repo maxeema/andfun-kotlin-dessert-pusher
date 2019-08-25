@@ -32,7 +32,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:tint="@color/accent"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@+id/well_end"
@@ -40,7 +39,7 @@
             app:layout_constraintStart_toStartOf="@+id/well_start"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_max="360dp"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            app:srcCompat="@drawable/ic_logo_about" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/well_start"
@@ -74,13 +73,12 @@
             android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:alpha=".5"
             android:rotation="90"
             android:text="@{ model.author }"
             android:textAlignment="viewStart"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary_variant"
             android:textSize="@dimen/small_text_size"
-            android:translationY="110sp"
+            android:translationY="@dimen/author_translation_y"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/well_end2"
             app:layout_constraintTop_toTopOf="parent"
@@ -108,7 +106,6 @@
             android:layout_height="0dp"
             android:alpha=".75"
             android:text="@{ model.version }"
-            android:textColor="@color/textDarken"
             android:textSize="@dimen/medium_text_size"
             android:translationY="8sp"
             app:layout_constrainedHeight="true"

@@ -13,15 +13,16 @@ import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import maxeem.america.desserts.R
 import maxeem.america.desserts.app
 import maxeem.america.desserts.data.dessertByPrice
 import maxeem.america.desserts.databinding.FragmentDessertsBinding
 import maxeem.america.desserts.model.DessertsModel
+import maxeem.america.desserts.util.Bool
 import maxeem.america.desserts.util.Prefs
 import maxeem.america.desserts.util.asString
-import maxeem.america.desserts.util.compatActivity
 import maxeem.america.desserts.util.delayed
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.design.indefiniteSnackbar
@@ -33,8 +34,13 @@ import kotlin.math.atan2
 
 class DessertsFragment : Fragment(), AnkoLogger {
 
+    private companion object {
+        private const val swipeDessertTipToken = "swipeDessertTipToken"
+    }
+
     private val model : DessertsModel by viewModels { SavedStateViewModelFactory(app, this) }
     private lateinit var binding: FragmentDessertsBinding
+
     private var snackbarTipSwipeDessert : Snackbar? = null
 
     private val des get() = requireNotNull(model.dessert.value)
@@ -72,13 +78,21 @@ class DessertsFragment : Fragment(), AnkoLogger {
 
     override fun onResume() { super.onResume()
         if (!Prefs.hasSwipeDessertTipGot)
-            compatActivity()!!.delayed(3500, Lifecycle.State.RESUMED) {
+            viewLifecycleOwner.delayed(3500, swipeDessertTipToken, Lifecycle.State.RESUMED) {
                 if (Prefs.hasSwipeDessertTipGot) return@delayed
                 snackbarTipSwipeDessert = view!!.indefiniteSnackbar(R.string.tip_swipe_dessert, R.string.got_it) { Prefs.gotSwipeDessertTip() }
+                snackbarTipSwipeDessert!!.animationMode
+                snackbarTipSwipeDessert!!.addCallback(object: BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        if (event == DISMISS_EVENT_SWIPE) Prefs.gotSwipeDessertTip()
+                    }
+                })
+                viewLifecycleOwner.delayed(7000, swipeDessertTipToken, Lifecycle.State.RESUMED) { snackbarTipSwipeDessert?.dismiss() }
             }
     }
     override fun onPause() { super.onPause()
         snackbarTipSwipeDessert?.dismiss()
+        app.handler.removeCallbacksAndMessages(swipeDessertTipToken)
     }
 
     /**
@@ -90,7 +104,7 @@ class DessertsFragment : Fragment(), AnkoLogger {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.main_menu, menu)
         if (model.made.value!! == 0) menu.findItem(R.id.shareMenuItem).apply {
-            isEnabled = false // don't allow share when nothing made
+            this.isEnabled = false
             shareMenuItem = this
         }
     }
@@ -133,13 +147,13 @@ class DessertsFragment : Fragment(), AnkoLogger {
         }
 
         shareMenuItem?.takeIf { amount == 1 }?.apply {
-            isEnabled = true
+            this.isEnabled = true
         }
 
         snackbarTipSwipeDessert?.dismiss()
     }
 
-    private fun onDessertSwiped(next: Boolean) {
+    private fun onDessertSwiped(next: Bool) {
         binding.dessertImg.inAnimation = if (next) nextDessertAnimation else prevDessertAnimation
         binding.dessertImg.outAnimation = if (next) nextOutDessertAnimation else prevOutDessertAnimation
 
@@ -189,7 +203,7 @@ class DessertsFragment : Fragment(), AnkoLogger {
      * Swiping
      */
     private val gestureDetector : GestureDetectorCompat by lazy { GestureDetectorCompat(context!!, object: GestureDetector.SimpleOnGestureListener() {
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocity1: Float, velocity2: Float) : Boolean {
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocity1: Float, velocity2: Float) : Bool {
             if (e1 == null || e2 == null) return false
             if (app.px2dip(abs(e1.x-e2.x).toInt()) < 25) return false
             return when (detect(Math.toDegrees(atan2(e1.y.toDouble() - e2.y.toDouble(), e2.x.toDouble() - e1.x.toDouble())).toInt())) {
