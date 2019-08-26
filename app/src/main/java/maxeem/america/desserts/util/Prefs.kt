@@ -13,7 +13,7 @@ object Prefs : LifecycleObserver {
     private const val KEY_EARNED = "earned"
     private const val KEY_TIMER  = "timer"
 
-    private const val KEY_GOT_SWIPE_DESSERT_TIP  = "got_swipe_dessert_tip"
+    private const val KEY_TIP_PREFIX = "tip"
 
     private val prefs = app.defaultSharedPreferences
     private val editor = prefs.edit()
@@ -29,7 +29,7 @@ object Prefs : LifecycleObserver {
     val earned get() = prefs.getInt(KEY_EARNED, 0)
     val timer  get() = prefs.getString(KEY_TIMER, null)
 
-    val hasSwipeDessertTipGot get() = prefs.getBoolean(KEY_GOT_SWIPE_DESSERT_TIP, false)
-    fun gotSwipeDessertTip() = prefs.edit { putBoolean(KEY_GOT_SWIPE_DESSERT_TIP, true) }
+    fun hasTipGotten(tip: Tips) = prefs.getBoolean("${KEY_TIP_PREFIX}_${tip.id}", false)
+    fun setTipGotten(tip: Tips) = prefs.edit { putBoolean("${KEY_TIP_PREFIX}_${tip.id}", true) }
 
 }

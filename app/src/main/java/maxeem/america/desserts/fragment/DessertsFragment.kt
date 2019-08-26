@@ -8,24 +8,20 @@ import androidx.core.app.ShareCompat
 import androidx.core.view.GestureDetectorCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_desserts.*
 import maxeem.america.desserts.R
 import maxeem.america.desserts.app
 import maxeem.america.desserts.data.dessertByPrice
 import maxeem.america.desserts.databinding.FragmentDessertsBinding
 import maxeem.america.desserts.model.DessertsModel
 import maxeem.america.desserts.util.Bool
-import maxeem.america.desserts.util.Prefs
+import maxeem.america.desserts.util.Tips
 import maxeem.america.desserts.util.asString
-import maxeem.america.desserts.util.delayed
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.design.indefiniteSnackbar
 import org.jetbrains.anko.info
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.px2dip
@@ -34,14 +30,8 @@ import kotlin.math.atan2
 
 class DessertsFragment : Fragment(), AnkoLogger {
 
-    private companion object {
-        private const val swipeDessertTipToken = "swipeDessertTipToken"
-    }
-
     private val model : DessertsModel by viewModels { SavedStateViewModelFactory(app, this) }
     private lateinit var binding: FragmentDessertsBinding
-
-    private var snackbarTipSwipeDessert : Snackbar? = null
 
     private val des get() = requireNotNull(model.dessert.value)
 
@@ -77,22 +67,10 @@ class DessertsFragment : Fragment(), AnkoLogger {
     }
 
     override fun onResume() { super.onResume()
-        if (!Prefs.hasSwipeDessertTipGot)
-            viewLifecycleOwner.delayed(3500, swipeDessertTipToken, Lifecycle.State.RESUMED) {
-                if (Prefs.hasSwipeDessertTipGot) return@delayed
-                snackbarTipSwipeDessert = view!!.indefiniteSnackbar(R.string.tip_swipe_dessert, R.string.got_it) { Prefs.gotSwipeDessertTip() }
-                snackbarTipSwipeDessert!!.animationMode
-                snackbarTipSwipeDessert!!.addCallback(object: BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                        if (event == DISMISS_EVENT_SWIPE) Prefs.gotSwipeDessertTip()
-                    }
-                })
-                viewLifecycleOwner.delayed(7000, swipeDessertTipToken, Lifecycle.State.RESUMED) { snackbarTipSwipeDessert?.dismiss() }
-            }
+        Tips.SWIPE_DESSERT.show(viewLifecycleOwner, view!!, plusOne)
     }
     override fun onPause() { super.onPause()
-        snackbarTipSwipeDessert?.dismiss()
-        app.handler.removeCallbacksAndMessages(swipeDessertTipToken)
+        Tips.SWIPE_DESSERT.hide()
     }
 
     /**
@@ -150,7 +128,7 @@ class DessertsFragment : Fragment(), AnkoLogger {
             this.isEnabled = true
         }
 
-        snackbarTipSwipeDessert?.dismiss()
+        Tips.SWIPE_DESSERT.hide()
     }
 
     private fun onDessertSwiped(next: Bool) {
@@ -168,10 +146,7 @@ class DessertsFragment : Fragment(), AnkoLogger {
             start()
         }
 
-        if (!Prefs.hasSwipeDessertTipGot) {
-            Prefs.gotSwipeDessertTip()
-            snackbarTipSwipeDessert?.dismiss()
-        }
+        Tips.SWIPE_DESSERT.consume()
     }
 
     /**
@@ -193,7 +168,7 @@ class DessertsFragment : Fragment(), AnkoLogger {
     private val fadeInAnimation         by lazy { AnimationUtils.loadAnimation(context!!, android.R.anim.fade_in) }
 
     private val newDessertAnimation     by lazy { AnimationUtils.loadAnimation(context!!, R.anim.sweet_new) }
-    private val madeDessertAnimation     by lazy { AnimationUtils.loadAnimation(context!!, R.anim.sweet_make) }
+    private val madeDessertAnimation    by lazy { AnimationUtils.loadAnimation(context!!, R.anim.sweet_make) }
     private val prevDessertAnimation    by lazy { AnimationUtils.loadAnimation(context!!, R.anim.sweet_prev) }
     private val nextDessertAnimation    by lazy { AnimationUtils.loadAnimation(context!!, R.anim.sweet_next) }
     private val prevOutDessertAnimation by lazy { AnimationUtils.loadAnimation(context!!, R.anim.sweet_prev_out) }

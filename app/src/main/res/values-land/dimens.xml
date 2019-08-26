@@ -23,8 +23,8 @@
     <dimen name="medium_text_size">18sp</dimen>
     <dimen name="large_text_size">23sp</dimen>
 <!--    <dimen name="corner_radius">4dp</dimen>-->
-
-    <dimen name="snackbar_margin_vertical">14dp</dimen>
-    <dimen name="snackbar_margin_horizontal">30dp</dimen>
     <dimen name="author_translation_y">100sp</dimen>
+
+<!--    <dimen name="snackbar_margin_vertical">4dp</dimen>-->
+    <dimen name="snackbar_margin_horizontal">30dp</dimen>
 </resources>
