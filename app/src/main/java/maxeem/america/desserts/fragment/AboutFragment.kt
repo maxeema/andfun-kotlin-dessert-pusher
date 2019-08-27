@@ -14,7 +14,7 @@ import org.jetbrains.anko.AnkoLogger
 class AboutFragment : Fragment(), AnkoLogger {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding =  FragmentAboutBinding.inflate(inflater, container, false)
+        val binding = FragmentAboutBinding.inflate(inflater, container, false)
         binding.model = viewModels<AboutModel>().value
         binding.description.movementMethod = LinkMovementMethod.getInstance()
         return binding.root

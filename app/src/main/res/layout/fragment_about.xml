@@ -28,7 +28,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/logo"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
@@ -97,7 +97,7 @@
             app:layout_constraintEnd_toStartOf="@+id/well_end2"
             app:layout_constraintHeight_default="wrap"
             app:layout_constraintStart_toStartOf="@+id/well_start2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
             app:layout_constraintWidth_default="wrap" />
 
         <TextView
