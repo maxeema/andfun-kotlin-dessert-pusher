@@ -21,6 +21,7 @@
 
     <data>
         <variable name="model" type="maxeem.america.desserts.model.AboutModel" />
+        <import type="android.text.method.LinkMovementMethod"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,30 +117,23 @@
             app:layout_constraintWidth_default="wrap"
             tools:text="1.0" />
 
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:fadingEdgeLength="40dp"
-            android:requiresFadingEdge="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/well_end2"
-            app:layout_constraintStart_toStartOf="@+id/well_start2"
-            app:layout_constraintTop_toBottomOf="@+id/name">
-
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{ model.description }"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/small_text_size"
-                    android:paddingBottom="16dp"
-                    app:layout_constrainedHeight="true"
-                    app:layout_constrainedWidth="true"
-                    tools:text="@string/app_description" />
-
-        </ScrollView>
+            <TextView
+                movementMethod="@{ LinkMovementMethod.getInstance() }"
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:text="@{ model.description }"
+                android:textAlignment="center"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constrainedHeight="true"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHeight_default="wrap"
+                app:layout_constraintEnd_toStartOf="@+id/well_end2"
+                app:layout_constraintStart_toStartOf="@+id/well_start2"
+                tools:text="@string/app_description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
