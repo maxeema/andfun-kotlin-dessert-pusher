@@ -59,6 +59,13 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".05" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/build_start_quide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".15" />
+
         <ImageSwitcher
             android:id="@+id/dessert_img"
             android:layout_width="wrap_content"

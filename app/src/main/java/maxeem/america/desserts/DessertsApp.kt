@@ -10,7 +10,6 @@ class DessertsApp : Application() {
     companion object {
         private lateinit var appRef : DessertsApp
         val instance get() = appRef
-
     }
 
     init { appRef = this }

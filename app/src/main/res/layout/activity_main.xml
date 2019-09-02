@@ -46,6 +46,18 @@
             app:navGraph="@navigation/nav_graph"
             app:defaultNavHost="true" />
 
+        <TextView
+            android:id="@+id/build"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:alpha=".25"
+            android:paddingEnd="4dp"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/large_text_size"
+            tools:text="DEMO" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </merge>

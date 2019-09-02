@@ -22,6 +22,7 @@
     <data>
         <variable name="model" type="maxeem.america.desserts.model.AboutModel" />
         <import type="android.text.method.LinkMovementMethod"/>
+        <import type="maxeem.america.desserts.DessertsApp"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +33,7 @@
             android:id="@+id/logo"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:scaleType="fitCenter"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
@@ -117,23 +119,33 @@
             app:layout_constraintWidth_default="wrap"
             tools:text="1.0" />
 
-            <TextView
-                movementMethod="@{ LinkMovementMethod.getInstance() }"
-                android:id="@+id/description"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="16dp"
-                android:text="@{ model.description }"
-                android:textAlignment="center"
-                android:textSize="@dimen/small_text_size"
-                app:layout_constraintTop_toBottomOf="@+id/name"
-                app:layout_constrainedHeight="true"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintHeight_default="wrap"
-                app:layout_constraintEnd_toStartOf="@+id/well_end2"
-                app:layout_constraintStart_toStartOf="@+id/well_start2"
-                tools:text="@string/app_description" />
+        <TextView
+            android:id="@+id/description"
+            movementMethod="@{ LinkMovementMethod.getInstance() }"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:text="@{ model.description }"
+            android:textAlignment="center"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@+id/well_end2"
+            app:layout_constraintHeight_default="wrap"
+            app:layout_constraintStart_toStartOf="@+id/well_start2"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="@string/app_description" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/google_play"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/app_on_google_play"
+            app:layout_constraintEnd_toStartOf="@+id/well_end"
+            app:layout_constraintStart_toStartOf="@+id/well_start"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

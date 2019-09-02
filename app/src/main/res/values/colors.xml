@@ -16,7 +16,7 @@
 
 <resources>
     <color name="background">#222222</color>
-    <color name="primary">#f50057</color>
+    <color name="primary">#F50057</color>
     <color name="primary_variant">#ff5983</color>
     <color name="primary_dark">#222222</color>
     <color name="on_primary">#000000</color>
