@@ -72,13 +72,13 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".9" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/author"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:rotation="90"
             android:text="@{ model.author }"
-            android:textAlignment="viewStart"
             android:textColor="@color/primary_variant"
             android:textSize="@dimen/small_text_size"
             android:translationY="@dimen/author_translation_y"

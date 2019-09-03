@@ -23,7 +23,7 @@
     <dimen name="medium_text_size">20sp</dimen>
     <dimen name="large_text_size">33sp</dimen>
     <dimen name="corner_radius">4dp</dimen>
-    <dimen name="author_translation_y">110sp</dimen>
+    <dimen name="author_translation_y">130sp</dimen>
 
     <dimen name="snackbar_margin_vertical">4dp</dimen>
     <dimen name="snackbar_margin_horizontal">16dp</dimen>
