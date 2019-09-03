@@ -17,6 +17,7 @@ import maxeem.america.desserts.app
 val Any.hash get() = hashCode()
 
 fun Int.asString() = app.getString(this)
+fun Int.asString(vararg args: Any) = app.getString(this, *args)
 fun String.fromHtml() = Util.fromHtml(this)
 
 fun View.onClick(l: ()->Unit) = setOnClickListener { l() }

@@ -25,6 +25,8 @@
             App <a href="https://github.com/maxeema/andfun-kotlin-dessert-pusher/tree/work">GitHub page</a>
         ]]>
     </string>
+    <string name="author_email">Maxeem.America@gmail.com</string>
+    <string name="email_subject">Hello Max! From \"%s\" app.</string>
     <string name="app_on_google_play">See on Google Play</string>
     <string name="about">About</string>
     <!-- version names -->
