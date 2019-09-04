@@ -34,8 +34,13 @@ class AboutFragment : Fragment(), AnkoLogger {
                 Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(
                             "https://play.google.com/store/apps/details?id=${app.packageName}")
-                    setPackage("com.android.vending")
-                    startActivity(this)
+                    `package` = "com.android.vending"
+                    if (resolveActivity(app.packageManager) != null) {
+                        startActivity(this)
+                    } else {
+                        `package` = null
+                        startActivity(this)
+                    }
                 }
             }
         }.root
