@@ -20,6 +20,7 @@ class AboutFragment : Fragment(), AnkoLogger {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentAboutBinding.inflate(inflater, container, false).apply {
             model = viewModels<AboutModel>().value
+            lifecycleOwner = viewLifecycleOwner
             author.apply {
                 val mail = Intent(Intent.ACTION_SENDTO)
                         .setData(Uri.parse("mailto:${R.string.author_email.asString()}"))
