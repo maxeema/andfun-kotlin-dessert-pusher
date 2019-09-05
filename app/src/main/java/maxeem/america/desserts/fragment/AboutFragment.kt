@@ -5,12 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import maxeem.america.desserts.R
 import maxeem.america.desserts.app
 import maxeem.america.desserts.databinding.FragmentAboutBinding
-import maxeem.america.desserts.model.AboutModel
+import maxeem.america.desserts.packageInfo
 import maxeem.america.desserts.util.asString
 import maxeem.america.desserts.util.onClick
 import org.jetbrains.anko.AnkoLogger
@@ -19,7 +19,6 @@ class AboutFragment : Fragment(), AnkoLogger {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentAboutBinding.inflate(inflater, container, false).apply {
-            model = viewModels<AboutModel>().value
             lifecycleOwner = viewLifecycleOwner
             author.apply {
                 val mail = Intent(Intent.ACTION_SENDTO)
@@ -31,10 +30,10 @@ class AboutFragment : Fragment(), AnkoLogger {
                     })
                 }
             }
+            version.text = app.packageInfo.versionName.substringBefore('-')
             googlePlay.onClick {
                 Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(
-                            "https://play.google.com/store/apps/details?id=${app.packageName}")
+                    data = "https://play.google.com/store/apps/details?id=${app.packageName}".toUri()
                     `package` = "com.android.vending"
                     if (resolveActivity(app.packageManager) == null)
                         `package` = null

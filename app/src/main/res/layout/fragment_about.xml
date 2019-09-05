@@ -20,9 +20,7 @@
     tools:context=".fragment.AboutFragment">
 
     <data>
-        <variable name="model" type="maxeem.america.desserts.model.AboutModel" />
         <import type="android.text.method.LinkMovementMethod"/>
-        <import type="maxeem.america.desserts.DessertsApp"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,14 +76,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rotation="90"
-            android:text="@{ model.author }"
             android:textColor="@color/primary_variant"
             android:textSize="@dimen/small_text_size"
             android:translationY="@dimen/author_translation_y"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/well_end2"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/app_author" />
+            android:text="@string/app_author" />
 
         <TextView
             android:id="@+id/name"
@@ -108,7 +105,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:alpha=".75"
-            android:text="@{ model.version }"
             android:textSize="@dimen/medium_text_size"
             android:translationY="8sp"
             app:layout_constrainedHeight="true"
@@ -117,7 +113,7 @@
             app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintHeight_default="wrap"
             app:layout_constraintWidth_default="wrap"
-            tools:text="1.0" />
+            tools:text="0.1" />
 
         <TextView
             android:id="@+id/description"
@@ -125,7 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:text="@{ model.description }"
+            textHtml="@{ @string/app_description }"
             android:textAlignment="center"
             android:textSize="@dimen/small_text_size"
             app:layout_constrainedHeight="true"
