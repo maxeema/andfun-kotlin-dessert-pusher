@@ -34,6 +34,7 @@
         <!---->
         <item name="snackbarStyle">@style/snackbar</item>
         <item name="snackbarButtonStyle">@style/snackbarButton</item>
+        <item name="materialButtonStyle">@style/button</item>
     </style>
 
     <style name="snackbar" parent="Widget.MaterialComponents.Snackbar">
@@ -45,8 +46,11 @@
         <item name="android:layout_marginStart">@dimen/snackbar_margin_horizontal</item>
         <item name="android:layout_marginEnd">@dimen/snackbar_margin_horizontal</item>
     </style>
-    <style name="snackbarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">?attr/colorSecondary</item>
+    <style name="snackbarButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Cut</item>
+    </style>
+    <style name="button" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Cut</item>
     </style>
 
 </resources>
