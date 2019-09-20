@@ -30,7 +30,7 @@ class AboutFragment : Fragment(), AnkoLogger {
                     })
                 }
             }
-            version.text = app.packageInfo.versionName.substringBefore('-')
+            version.text = app.packageInfo.versionName
             googlePlay.onClick {
                 Intent(Intent.ACTION_VIEW).apply {
                     data = "https://play.google.com/store/apps/details?id=${app.packageName}".toUri()

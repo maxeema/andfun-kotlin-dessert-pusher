@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         NavigationUI.setupActionBarWithNavController(this, findNavController(R.id.nav_host_fragment))
-        build.text = app.packageInfo.versionName.substringAfter('-').toUpperCase()
     }
 
     override fun onSupportNavigateUp()
